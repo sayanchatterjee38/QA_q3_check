@@ -3,7 +3,7 @@
 //         Author: Sayan Chatterjee
 //         Class: SayanCMW 
 //         Checked version 24/06/2020
-//         Last Modified on 12/11/2021
+//         Last Modified on 27/10/2021
 
 // This is a fresh cleaned version of code of QA. I just added mean pt vs eta in the track loop on 16/02/2021.
 
@@ -105,136 +105,82 @@ SayanCMW::SayanCMW(const edm::ParameterSet& iConfig) :  //Parametrized Construct
   
   TFileDirectory fGlobalHist = fs->mkdir("QAplots");
  
-  //const Int_t  nptbin              = 26;
-  //Double_t  ptbining[nptbin+1]     = {0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.10, 1.15, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.0, 2.5, 3.0, 4.0, 5.0};
+  const Int_t  nptbin              = 26;
+  Double_t  ptbining[nptbin+1]     = {0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.10, 1.15, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.0, 2.5, 3.0, 4.0, 5.0};
 
   const Int_t netaBin = 18;
   Double_t etabining[netaBin+1] = {-2.4, -2.0, -1.6, -1.4, -1.3, -1.2, -1.0, -0.8, -0.4, 0.0, 0.4, 0.8, 1.0, 1.2, 1.3, 1.4, 1.6, 2.0, 2.4};
    
-  
+  //  const Int_t netaBin = 12;
+  //Double_t etabining[netaBin+1] = {-2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4};
+
   hpt          = fGlobalHist.make<TH1F>("hpt", "", 45, 0.5, 5.0 );
+  hpt_nbin     = fGlobalHist.make<TH1F>("hpt_nbin", "", nptbin, ptbining );
   heta         = fGlobalHist.make<TH1F>("heta", "", 48, -2.4, 2.4 );
   heta_nbin    = fGlobalHist.make<TH1F>("heta_nbin", "", netaBin, etabining );
   hptP         = fGlobalHist.make<TH1F>("hptP", "", 45, 0.5, 5.0 );
+  hptP_nbin    = fGlobalHist.make<TH1F>("hptP_nbin", "", nptbin, ptbining );
   hetaP        = fGlobalHist.make<TH1F>("hetaP", "", 48, -2.4, 2.4 );
   hetaP_nbin   = fGlobalHist.make<TH1F>("hetaP_nbin", "", netaBin, etabining );
   hptN         = fGlobalHist.make<TH1F>("hptN", "", 45, 0.5, 5.0 );
+  hptN_nbin    = fGlobalHist.make<TH1F>("hptN_nbin", "", nptbin, ptbining );
   hetaN        = fGlobalHist.make<TH1F>("hetaN", "", 48, -2.4, 2.4 );
   hetaN_nbin   = fGlobalHist.make<TH1F>("hetaN_nbin", "", netaBin, etabining );
-  hphi         = fGlobalHist.make<TH1F>("hphi", "", 63, -3.15, 3.15 );
-  hphiP        = fGlobalHist.make<TH1F>("hphiP", "", 63, -3.15, 3.15 );
-  hphiN        = fGlobalHist.make<TH1F>("hphiN", "", 63, -3.15, 3.15 );
-
-
+  hphi         = fGlobalHist.make<TH1F>("hphi", "", 64, -3.2, 3.2 );
   hZBestVtx    = fGlobalHist.make<TH1F>("hZvtx", "", 600, -30.0, 30.0);
   hcent_bin    = fGlobalHist.make<TH1I>("hcent", "", 100, 0, 100);
   
-  th2d_etaphi    = fGlobalHist.make<TH2D>("th2d_etaphi", "", netaBin, etabining, 63, -3.15, 3.15 );
-  th2d_etaphi_pos    = fGlobalHist.make<TH2D>("th2d_etaphi_pos", "", netaBin, etabining, 63, -3.15, 3.15 );
-  th2d_etaphi_neg    = fGlobalHist.make<TH2D>("th2d_etaphi_neg", "", netaBin, etabining, 63, -3.15, 3.15 );
+  th2d_etaphi    = fGlobalHist.make<TH2D>("th2d_etaphi", "", netaBin, etabining, 64, -3.2, 3.2 );
+  th2d_etaphi_pos    = fGlobalHist.make<TH2D>("th2d_etaphi_pos", "", netaBin, etabining, 64, -3.2, 3.2 );
+  th2d_etaphi_neg    = fGlobalHist.make<TH2D>("th2d_etaphi_neg", "", netaBin, etabining, 64, -3.2, 3.2 );
 
-  //th2d_algomva    = fGlobalHist.make<TH2F>("th2d_algomva", "", 40, -20, 20, 3000, -1.5, 1.5);
-  //th1d_algo    = fGlobalHist.make<TH1D>("th1d_algo", "", 40, -20, 20);
-  //  th1d_mva    = fGlobalHist.make<TH1D>("th1d_mva", "", 300, -1.5, 1.5);
+  th2d_algomva    = fGlobalHist.make<TH2F>("th2d_algomva", "", 40, -20, 20, 3000, -1.5, 1.5);
+  th1d_algo    = fGlobalHist.make<TH1D>("th1d_algo", "", 40, -20, 20);
+  th1d_mva    = fGlobalHist.make<TH1D>("th1d_mva", "", 300, -1.5, 1.5);
 
+  tp1d_mpteta   = fGlobalHist.make<TProfile>("tp1d_mpt", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mpteta_0p3   = fGlobalHist.make<TProfile>("tp1d_mpt_0p3", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mpteta_nbin   = fGlobalHist.make<TProfile>("tp1d_mpt_nbin", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_mptetaP   = fGlobalHist.make<TProfile>("tp1d_mptP", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mptetaP_0p3   = fGlobalHist.make<TProfile>("tp1d_mptP_0p3", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mptetaP_nbin   = fGlobalHist.make<TProfile>("tp1d_mptP_nbin", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_mptetaN   = fGlobalHist.make<TProfile>("tp1d_mptN", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mptetaN_0p3   = fGlobalHist.make<TProfile>("tp1d_mptN_0p3", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mptetaN_nbin   = fGlobalHist.make<TProfile>("tp1d_mptN_nbin", "", netaBin, etabining, -1e10, 1e10);
 
-  tp1d_mptphi   = fGlobalHist.make<TProfile>("tp1d_mptphi", "", 63, -3.15, 3.15, -1e10, 1e10);
-  tp1d_mptphiP   = fGlobalHist.make<TProfile>("tp1d_mptphiP", "", 63, -3.15, 3.15, -1e10, 1e10);
-  tp1d_mptphiN   = fGlobalHist.make<TProfile>("tp1d_mptphiN", "", 63, -3.15, 3.15, -1e10, 1e10);
-
   tp1d_charge_eta   = fGlobalHist.make<TProfile>("tp1d_charge_eta", "", netaBin, etabining, -1e10, 1e10);
-  tp1d_charge_phi   = fGlobalHist.make<TProfile>("tp1d_charge_phi", "", 63, -3.15, 3.15, -1e10, 1e10);
-  
-  //thnsparse4d histogram
-  const Int_t ndims =4;    //eta, pT, phi, centBin                                                                                                    
-  Int_t bins[ndims] = {18, 45, 63, 8};
-  Double_t xmin[ndims]={0., 0.5, -3.15, 0.};
-  Double_t xmax[ndims] = {10., 5.0, 3.15, 10.};
-
-  const int nVarBins0 = 18;
-  Double_t varBins0[nVarBins0+1] = { -2.4, -2.0, -1.6, -1.4, -1.3, -1.2, -1.0, -0.8, -0.4, 0.0, 0.4, 0.8, 1.0, 1.2, 1.3, 1.4, 1.6, 2.0, 2.4 };
-
-  //  const int nVarBins1 = 50;
-  //Double_t varBins1[nVarBins1+1] = {  0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95,
-  //				      1.0, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.5, 3.0, 4.0, 5.0, 7.5, 10.0, 12.0, 15.0, 
-  //				      20.0, 25.0, 30.0, 45.0, 60.0, 90.0, 120.0, 180.0, 300.0, 500.0 };
-
-  const int nVarBins3 = 8;
-  Double_t varBins3[nVarBins3+1] = { 0.0, 10.0, 20.0, 40.0, 60.0, 80.0, 100.0, 140.0, 200.0 };
-
-  hist4D = fGlobalHist.make<THnSparseD>("hist4D",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-  hist4DP = fGlobalHist.make<THnSparseD>("hist4DP",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-  hist4DN = fGlobalHist.make<THnSparseD>("hist4DN",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-
-  hist4D->GetAxis(0)->Set(nVarBins0, varBins0);
-  //hist4D->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4D->GetAxis(3)->Set(nVarBins3, varBins3);
-
-  hist4DP->GetAxis(0)->Set(nVarBins0, varBins0);
-  //hist4DP->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4DP->GetAxis(3)->Set(nVarBins3, varBins3);
-
-  hist4DN->GetAxis(0)->Set(nVarBins0, varBins0);
-  //hist4DN->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4DN->GetAxis(3)->Set(nVarBins3, varBins3);
-
-  hist4D->Sumw2();
-  hist4DP->Sumw2();
-  hist4DN->Sumw2();
+  tp1d_charge_etaP   = fGlobalHist.make<TProfile>("tp1d_charge_etaP", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_charge_etaN   = fGlobalHist.make<TProfile>("tp1d_charge_etaN", "", netaBin, etabining, -1e10, 1e10);
 
   TFileDirectory f_effw = fs->mkdir("Effeciency_weight");
 
   hpt_w          = f_effw.make<TH1F>("hpt_w", "", 45, 0.5, 5.0 );
+  hpt_nbin_w     = f_effw.make<TH1F>("hpt_nbin_w", "", nptbin, ptbining );
   heta_w         = f_effw.make<TH1F>("heta_w", "", 48, -2.4, 2.4 );
   heta_nbin_w    = f_effw.make<TH1F>("heta_nbin_w", "", netaBin, etabining );
   hptP_w         = f_effw.make<TH1F>("hptP_w", "", 45, 0.5, 5.0 );
+  hptP_nbin_w    = f_effw.make<TH1F>("hptP_nbin_w", "", nptbin, ptbining );
   hetaP_w        = f_effw.make<TH1F>("hetaP_w", "", 48, -2.4, 2.4 );
   hetaP_nbin_w   = f_effw.make<TH1F>("hetaP_nbin_w", "", netaBin, etabining );
   hptN_w         = f_effw.make<TH1F>("hptN_w", "", 45, 0.5, 5.0 );
+  hptN_nbin_w    = f_effw.make<TH1F>("hptN_nbin_w", "", nptbin, ptbining );
   hetaN_w        = f_effw.make<TH1F>("hetaN_w", "", 48, -2.4, 2.4 );
   hetaN_nbin_w   = f_effw.make<TH1F>("hetaN_nbin_w", "", netaBin, etabining );
-  hphi_w         = f_effw.make<TH1F>("hphi_w", "", 63, -3.15, 3.15 );
-  hphiP_w        = f_effw.make<TH1F>("hphiP_w", "", 63, -3.15, 3.15 );
-  hphiN_w        = f_effw.make<TH1F>("hphiN_w", "", 63, -3.15, 3.15 );
 
-  th2d_etaphi_w    = f_effw.make<TH2D>("th2d_etaphi_w", "", netaBin, etabining, 63, -3.15, 3.15 );
-  th2d_etaphi_pos_w    = f_effw.make<TH2D>("th2d_etaphi_pos_w", "", netaBin, etabining, 63, -3.15, 3.15 );
-  th2d_etaphi_neg_w    = f_effw.make<TH2D>("th2d_etaphi_neg_w", "", netaBin, etabining, 63, -3.15, 3.15 );
-
+  tp1d_mpteta_w   = f_effw.make<TProfile>("tp1d_mpt_w", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mpteta_0p3_w   = f_effw.make<TProfile>("tp1d_mpt_0p3_w", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mpteta_nbin_w   = f_effw.make<TProfile>("tp1d_mpt_nbin_w", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_mptetaP_w   = f_effw.make<TProfile>("tp1d_mptP_w", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mptetaP_0p3_w   = f_effw.make<TProfile>("tp1d_mptP_0p3_w", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mptetaP_nbin_w   = f_effw.make<TProfile>("tp1d_mptP_nbin_w", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_mptetaN_w   = f_effw.make<TProfile>("tp1d_mptN_w", "", 48, -2.4, 2.4, -1e10, 1e10);
+  tp1d_mptetaN_0p3_w   = f_effw.make<TProfile>("tp1d_mptN_0p3_w", "", 16, -2.4, 2.4, -1e10, 1e10);
   tp1d_mptetaN_nbin_w   = f_effw.make<TProfile>("tp1d_mptN_nbin_w", "", netaBin, etabining, -1e10, 1e10);
  
-  tp1d_mptphi_w   = f_effw.make<TProfile>("tp1d_mptphi_w", "", 63, -3.15, 3.15, -1e10, 1e10);
-  tp1d_mptphiP_w   = f_effw.make<TProfile>("tp1d_mptphiP_w", "", 63, -3.15, 3.15, -1e10, 1e10);
-  tp1d_mptphiN_w   = f_effw.make<TProfile>("tp1d_mptphiN_w", "", 63, -3.15, 3.15, -1e10, 1e10);
-
   tp1d_charge_eta_w   = f_effw.make<TProfile>("tp1d_charge_eta_w", "", netaBin, etabining, -1e10, 1e10);
-  tp1d_charge_phi_w   = f_effw.make<TProfile>("tp1d_charge_phi_w", "", 63, -3.15, 3.15, -1e10, 1e10);
-  
-  //corrected 4D
-  hist4D_w = f_effw.make<THnSparseD>("hist4D_w",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-  hist4DP_w = f_effw.make<THnSparseD>("hist4DP_w",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-  hist4DN_w = f_effw.make<THnSparseD>("hist4DN_w",";#eta;p_{T};#phi;occ",  ndims, bins, xmin, xmax);
-  
-  hist4D_w->GetAxis(0)->Set(nVarBins0, varBins0);
-  //  hist4D_w->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4D_w->GetAxis(3)->Set(nVarBins3, varBins3);
+  tp1d_charge_etaP_w   = f_effw.make<TProfile>("tp1d_charge_etaP_w", "", netaBin, etabining, -1e10, 1e10);
+  tp1d_charge_etaN_w   = f_effw.make<TProfile>("tp1d_charge_etaN_w", "", netaBin, etabining, -1e10, 1e10);
 
-  hist4DP_w->GetAxis(0)->Set(nVarBins0, varBins0);
-  //hist4DP_w->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4DP_w->GetAxis(3)->Set(nVarBins3, varBins3);
-
-  hist4DN_w->GetAxis(0)->Set(nVarBins0, varBins0);
-  //hist4DN_w->GetAxis(1)->Set(nVarBins1, varBins1);
-  hist4DN_w->GetAxis(3)->Set(nVarBins3, varBins3);
-
-  hist4D_w->Sumw2();
-  hist4DP_w->Sumw2();
-  hist4DN_w->Sumw2();
  }
 
 SayanCMW::~SayanCMW() // Destructor 
@@ -479,121 +425,93 @@ SayanCMW::LoopCMWTracks(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  std::cout<<"...................................................Particle found..............................................."<<std::endl;
 	}
 
-      //th2d_algomva -> Fill(algo, trkMVA);  //algo and MVA checks
-      // th1d_algo -> Fill(algo);  //algo and MVA checks
-      //th1d_mva -> Fill(trkMVA);  //algo and MVA checks
+      th2d_algomva -> Fill(algo, trkMVA);  //algo and MVA checks
+      th1d_algo -> Fill(algo);  //algo and MVA checks
+      th1d_mva -> Fill(trkMVA);  //algo and MVA checks
 
       int index = GetpTbin(pt);
       if(index == -1) continue;
 
 
-      //double weight, weight_p, weight_n;
+      double weight, weight_p, weight_n;
           
-      double weight = TrkEff->getCorrection(pt, eta, phi, centBin);
+      weight = TrkEff->getCorrection(pt, eta, centBin);
       
-      //if (charge > 0) { weight_p = TrkEff1->getCorrection(pt, eta, phi, centBin); }
-      //else { weight_n = TrkEff2->getCorrection(pt, eta, phi, centBin); }
+      if (charge > 0) { weight_p = TrkEff1->getCorrection(pt, eta, centBin); }
+      else { weight_n = TrkEff2->getCorrection(pt, eta, centBin); }
       
-      //AssignpTbins(pt, eta, phi, weight, weight_p, weight_n, charge, index);
+      AssignpTbins(pt, eta, phi, weight, weight_p, weight_n, charge, index);
       
       //=========Filling histograms======================
       
-      double x[4] = {eta, pt, phi, centBin};
-
       hpt->Fill(pt);
+      hpt_nbin->Fill(pt);
       heta->Fill(eta);
       heta_nbin->Fill(eta);
       hphi->Fill(phi);
+      hpt_w ->Fill(pt, weight);
+      hpt_nbin_w ->Fill(pt, weight);
+      heta_w ->Fill(eta, weight);
+      heta_nbin_w ->Fill(eta, weight);
+
+      tp1d_mpteta ->Fill(eta, pt);
+      tp1d_mpteta_0p3 ->Fill(eta, pt);
+      tp1d_mpteta_nbin ->Fill(eta, pt);
+
+      tp1d_charge_eta ->Fill(eta, charge);
+
+      tp1d_mpteta_w ->Fill(eta, pt, weight);
+      tp1d_mpteta_0p3_w ->Fill(eta, pt, weight);
+      tp1d_mpteta_nbin_w ->Fill(eta, pt, weight);
       
       th2d_etaphi->Fill(eta, phi);
       
-      tp1d_mpteta_nbin ->Fill(eta, pt);
-      tp1d_mptphi ->Fill(phi, pt);
-      tp1d_charge_eta ->Fill(eta, charge);
-      tp1d_charge_phi ->Fill(phi, charge);
-      
-      hist4D->Fill(x);
-
-      //corrected
-      hpt_w ->Fill(pt, weight);
-      heta_w ->Fill(eta, weight);
-      heta_nbin_w ->Fill(eta, weight);
-      hphi_w->Fill(phi, weight);
-
-      th2d_etaphi_w->Fill(eta, phi, weight);
-
-      tp1d_mpteta_nbin_w ->Fill(eta, pt, weight);
-      tp1d_mptphi_w ->Fill(phi, pt, weight);
-        
-      //4D
-      hist4D_w->Fill(x, weight);
-    
       if (charge > 0)
 	{
-	  double xp[4] = {eta, pt, phi, centBin};
-	  double weight_p = TrkEff1->getCorrection(pt, eta, phi, centBin);
-
 	  hptP ->Fill(pt);
+	  hptP_nbin ->Fill(pt);
 	  hetaP ->Fill(eta);
 	  hetaP_nbin ->Fill(eta);
-	  hphiP->Fill(phi);
-
-	  th2d_etaphi_pos->Fill(eta, phi);
-
+	  tp1d_mptetaP ->Fill(eta, pt);
+	  tp1d_mptetaP_0p3 ->Fill(eta, pt);
 	  tp1d_mptetaP_nbin ->Fill(eta, pt);
-	  tp1d_mptphiP ->Fill(phi, pt);
-	  
-	  hist4DP->Fill(xp);
-
-	  //corrected
 	  hptP_w ->Fill(pt, weight_p);
+	  hptP_nbin_w ->Fill(pt, weight_p);
 	  hetaP_w ->Fill(eta, weight_p);
 	  hetaP_nbin_w ->Fill(eta, weight_p);
-	  hphiP_w->Fill(phi, weight_p);
-	  
-	  th2d_etaphi_pos_w->Fill(eta, phi, weight_p);
-
+	  tp1d_mptetaP_w ->Fill(eta, pt, weight_p);
+	  tp1d_mptetaP_0p3_w ->Fill(eta, pt, weight_p);
 	  tp1d_mptetaP_nbin_w ->Fill(eta, pt, weight_p);
-	  tp1d_mptphiP_w ->Fill(phi, pt, weight_p);
 	  
+	  tp1d_charge_etaP ->Fill(eta, charge);
+	  tp1d_charge_etaP_w ->Fill(eta, charge, weight_p);
 	  tp1d_charge_eta_w ->Fill(eta, charge, weight_p);
-	  tp1d_charge_phi_w ->Fill(phi, charge, weight_p);
-	  
-	  hist4DP_w->Fill(xp, weight_p);
+
+	  th2d_etaphi_pos->Fill(eta, phi);
 	}
 
       if (charge < 0)
 	{
-	  double xn[4] = {eta, pt, phi, centBin};
-	  double weight_n = TrkEff2->getCorrection(pt, eta, phi, centBin);
-	  
 	  hptN ->Fill(pt);
+	  hptN_nbin ->Fill(pt);
 	  hetaN ->Fill(eta);
 	  hetaN_nbin ->Fill(eta);
-	  hphiN->Fill(phi);
-
-	  th2d_etaphi_neg->Fill(eta, phi);
-
+	  tp1d_mptetaN ->Fill(eta, pt);
+	  tp1d_mptetaN_0p3 ->Fill(eta, pt);
 	  tp1d_mptetaN_nbin ->Fill(eta, pt);
-	  tp1d_mptphiN ->Fill(phi, pt);
-
-	  hist4DN->Fill(xn);
-
-	  //corrected
 	  hptN_w ->Fill(pt, weight_n);
+	  hptN_nbin_w ->Fill(pt, weight_n);
 	  hetaN_w ->Fill(eta, weight_n);
 	  hetaN_nbin_w ->Fill(eta, weight_n);
-	  hphiN_w->Fill(phi, weight_n);
-
-	  th2d_etaphi_neg_w->Fill(eta, phi, weight_n);
-
+	  tp1d_mptetaN_w ->Fill(eta, pt, weight_n);
+	  tp1d_mptetaN_0p3_w ->Fill(eta, pt, weight_n);
 	  tp1d_mptetaN_nbin_w ->Fill(eta, pt, weight_n);
-	  tp1d_mptphiN_w ->Fill(phi, pt, weight_n);
-	  
+
+	  tp1d_charge_etaN ->Fill(eta, charge);
+	  tp1d_charge_etaN_w ->Fill(eta, charge, weight_n);
 	  tp1d_charge_eta_w ->Fill(eta, charge, weight_n);
-	  tp1d_charge_phi_w ->Fill(phi, charge, weight_n);
 	
-	  hist4DN_w->Fill(xn, weight_n);
+	  th2d_etaphi_neg->Fill(eta, phi);
 	}
     } 
 
@@ -632,49 +550,40 @@ void SayanCMW::LoopCMWTracksgen(const edm::Event& iEvent, const edm::EventSetup&
       if(index == -1) continue;
 
       hpt->Fill(pt);
+      hpt_nbin->Fill(pt);
       heta->Fill(eta);
       heta_nbin->Fill(eta);
       hphi->Fill(phi);
       
+      tp1d_mpteta ->Fill(eta, pt);
+      tp1d_mpteta_0p3 ->Fill(eta, pt);
       tp1d_mpteta_nbin ->Fill(eta, pt);
-      tp1d_mptphi ->Fill(phi, pt);
+            
       tp1d_charge_eta ->Fill(eta, charge);
-      tp1d_charge_phi ->Fill(phi, charge);
-
-      double x[4] = {eta, pt, phi, centBin};
-      hist4D->Fill(x);
 
       if (charge > 0)
 	{
-	  double xp[4] = {eta, pt, phi, centBin};
-
 	  hptP ->Fill(pt);
+	  hptP_nbin->Fill(pt);
 	  hetaP ->Fill(eta);
 	  hetaP_nbin ->Fill(eta);
-	  hphiP->Fill(phi);
-
+	  tp1d_mptetaP ->Fill(eta, pt);
+	  tp1d_mptetaP_0p3 ->Fill(eta, pt);
 	  tp1d_mptetaP_nbin ->Fill(eta, pt);
-	  tp1d_mptphiP ->Fill(phi, pt);
-
-	  hist4DP->Fill(xp);
 	}
 	    
       if (charge < 0)
 	{
-	  double xn[4] = {eta, pt, phi, centBin};
-
 	  hptN ->Fill(pt);
+	  hptN_nbin->Fill(pt);
 	  hetaN ->Fill(eta);
 	  hetaN_nbin ->Fill(eta);
-	  hphiN->Fill(phi);
-
+	  tp1d_mptetaN ->Fill(eta, pt);
+	  tp1d_mptetaN_0p3 ->Fill(eta, pt);
 	  tp1d_mptetaN_nbin ->Fill(eta, pt);
-	  tp1d_mptphiN ->Fill(phi, pt);
-
-	  hist4DN->Fill(xn);
 	} 
 	
-      // AssignpTbins(pt, eta, phi, weight, weight_p, weight_n, charge, index);
+      AssignpTbins(pt, eta, phi, weight, weight_p, weight_n, charge, index);
 
     }
 }
