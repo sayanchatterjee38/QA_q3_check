@@ -10,11 +10,10 @@ if __name__ == '__main__':
     from CRABClient.UserUtilities import config # , getUsernameFromSiteDB
     config = config()
       
-    config.General.workArea = 'QA_q3_cent0100_pt0p5_5p0_phibinwidth0p1_efffakesecmul_thnsparse4d_MCDEBUGGen_Nov13_2021_1' 
+    config.General.workArea = 'QA_q3_cent0100_pt0p5_8p0_efffakesecmul_MCDEBUGGen_Oct29_2021_ptetamvacuts_noalgopara_0' 
     config.General.transferOutputs = True
     config.General.transferLogs = False
     config.JobType.pluginName = 'Analysis'
-    config.JobType.maxMemoryMB = 3500
     config.Data.unitsPerJob = 15          #LumiBased  #40 is good
     config.Data.totalUnits = -1
     config.Data.inputDBS = 'phys03'
@@ -43,12 +42,12 @@ if __name__ == '__main__':
     ##### Central events 0-10% ####
     ##config.Data.unitsPerJob = 46
  
-    config.General.requestName = 'PbPb2018_QA_q3_cent0100_pt0p5_5p0_phibinwidth0p1_efffakesecmul_thnsparse4d_MCDEBUGGen_Nov13_2021_1'
+    config.General.requestName = 'PbPb2018_QA_q3_cent0100_pt0p5_8p0_efffakesecmul_Oct29_2021_MCDEBUGGen_ptetamvacuts_noalgopara_0'
     #config.JobType.psetName = '../cfg/SayanCMW_MCDEBUGGen_cfg.py'
     config.JobType.psetName = '../cfg/SayanCMW_MCDEBUG_cfg.py'
     config.Data.inputDataset = '/MinBias_Hydjet_Drum5F_2018_5p02TeV/clindsey-RECODEBUG_20190625-5db5dfa073297cb96791f14c622e83e2/USER' 
    # config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/HI/PromptReco/Cert_326381-327564_HI_PromptReco_Collisions18_JSON.txt'
-    config.Data.outputDatasetTag = 'PbPb2018_QA_q3_cent0100_pt0p5_5p0_phibinwidth0p1_efffakesecmul_thnsparse4d_MCDEBUGGen_Nov13_2021_1'
+    config.Data.outputDatasetTag = 'PbPb2018_QA_q3_cent0100_pt0p5_8p0_efffakesecmul_Oct29_2021_MCDEBUGGen_ptetamvacuts_noalgopara_0'
     submit(config)
             
 

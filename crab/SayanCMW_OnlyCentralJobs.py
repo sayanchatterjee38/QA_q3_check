@@ -9,7 +9,7 @@ if __name__ == '__main__':
     from CRABClient.UserUtilities import config # , getUsernameFromSiteDB
     config = config()
   
-    config.General.workArea = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_thnsparse4d_pt0p5_5p0_Nov10_2021_0' 
+    config.General.workArea = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_pt0p5_5p0_Nov08_2021_0' 
     config.General.transferOutputs = True
     config.General.transferLogs = False
     config.JobType.pluginName = 'Analysis'
@@ -40,11 +40,11 @@ if __name__ == '__main__':
     ##### Central events 0-10% ####
     ##config.Data.unitsPerJob = 46
    
-    config.General.requestName = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_thnsparse4d_pt0p5_5p0_Nov10_2021_0' 
+    config.General.requestName = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_pt0p5_5p0_Nov08_2021_0' 
     config.JobType.psetName = '../cfg/SayanCMW_central_cfg.py'
     config.Data.inputDataset = '/HIMinimumBias11/HIRun2018A-04Apr2019-v1/AOD'
     config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/HI/PromptReco/Cert_326381-327564_HI_PromptReco_Collisions18_JSON.txt'
-    config.Data.outputDatasetTag = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_thnsparse4d_pt0p5_5p0_Nov10_2021_0'
+    config.Data.outputDatasetTag = 'PbPb2018_QA_q3_etaphi2d_cent3040_efffakesecmul_pt0p5_5p0_Nov08_2021_0'
     submit(config)
             
 
