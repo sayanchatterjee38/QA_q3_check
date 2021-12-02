@@ -45,8 +45,8 @@ process.source = cms.Source("PoolSource",
 # Define output file name
 import os
 process.TFileService = cms.Service("TFileService",
-          #fileName = cms.string('SayanCMW_MCDEBUGGen_QA_q3_thnsparse4d_phibinwidth0p1_efffakesecmul_pt0p5_5p0_cent0100_Nov13_2021_1.root')
-          fileName = cms.string('SayanCMW_MCDEBUGreco_QA_q3_thnsparse4d_phibinwidth0p1_efffakesecmul_pt0p5_5p0_cent0100_Nov13_2021_1.root')
+          fileName = cms.string('SayanCMW_MCDEBUGGen_QA_q3_newEffv1_ptetamvacuts_noalgopara_efffakesecmul_pt0p5_8p0_cent0100_Oct29_2021_0.root')
+          #fileName = cms.string('SayanCMW_MCDEBUGreco_QA_q3_newEffv1_ptetamvacuts_noalgopara_efffakesecmul_pt0p5_8p0_cent0100_Oct29_2021_0.root')
 )
 
 import HLTrigger.HLTfilters.hltHighLevel_cfi
