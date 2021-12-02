@@ -9,8 +9,8 @@ defaultCPDC = cms.EDAnalyzer('SayanCMW', #Analyzer named: Correspond to the clas
                              centrality = cms.InputTag("hiCentrality"),
                              centbin = cms.InputTag("centralityBin", "HFtowers"),
                              # Event selection
-                             centmin = cms.untracked.int32(0),
-                             centmax = cms.untracked.int32(100),
+                             centmin = cms.untracked.int32(30),
+                             centmax = cms.untracked.int32(40),
 
                              # Vertex selection
                              zminVtx = cms.untracked.double(-15.0),
@@ -19,27 +19,16 @@ defaultCPDC = cms.EDAnalyzer('SayanCMW', #Analyzer named: Correspond to the clas
                              
                              # Efficiency 
                              fpt = cms.untracked.InputTag("2018PbPb_Efficiency_GeneralTracks_highPt.root"),
-                             
                              #fmb = cms.untracked.InputTag("2018PbPb_Efficiency_GeneralTracks_MB.root"),
                              #fplus = cms.untracked.InputTag("2018PbPb_Efficiency_GeneralTracks_MB_ChargePlus.root"),
                              #fminus = cms.untracked.InputTag("2018PbPb_Efficiency_GeneralTracks_MB_ChargeMinus.root"),
-                             
-                             #fmb = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_alltrk_Oct29_2021.root"),
-                             #fplus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_postrk_Oct29_2021.root"),
-                             #fminus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_negtrk_Oct29_2021.root"),
+                             fmb = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_alltrk_Oct29_2021.root"),
+                             fplus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_postrk_Oct29_2021.root"),
+                             fminus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_negtrk_Oct29_2021.root"),
                              
                              #fmb = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_eta04_alltrk_Nov03_2021.root"),
                              #fplus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_eta04_postrk_Nov03_2021.root"),
                              #fminus = cms.untracked.InputTag("newEffv1_ptetamvacuts_noalgoparameters_eta04_negtrk_Nov03_2021.root"),
-
-                             #fmb = cms.untracked.InputTag("thnsparse4D_alltrk_Nov09_2021.root"),
-                             #fplus = cms.untracked.InputTag("thnsparse4D_postrk_Nov09_2021.root"),
-                             #fminus = cms.untracked.InputTag("thnsparse4D_negtrk_Nov09_2021.root"),
-
-                             fmb = cms.untracked.InputTag("thnsparse4D_phibinwidth0p1_alltrk_Nov11_2021.root"),
-                             fplus = cms.untracked.InputTag("thnsparse4D_phibinwidth0p1_postrk_Nov11_2021.root"),
-                             fminus = cms.untracked.InputTag("thnsparse4D_phibinwidth0p1_negtrk_Nov11_2021.root"),
-
                              
                              fpix = cms.untracked.InputTag("2018PbPb_Efficiency_PixelTracks.root"),
 
