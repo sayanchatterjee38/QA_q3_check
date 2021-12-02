@@ -5,7 +5,7 @@
 //
 //
 // Author:        Sayan Chatterjee
-// Last modified: 12/11/2021
+// Last modified: 27/10/2021
 
 
 
@@ -27,8 +27,7 @@
 #include "DataFormats/HeavyIonEvent/interface/Centrality.h"
 #include "FWCore/Utilities/interface/InputTag.h"
 //#include "Analyzers/SayanCMW/data/EFF/trackingEfficiency2018PbPb.h"
-//#include "Analyzers/SayanCMW/data/EFF/trackingEfficiency2018PbPb_newEffv1.h"
-#include "Analyzers/SayanCMW/data/EFF/trackingEfficiency2018PbPb_thnsparse4D_newEffv1.h"
+#include "Analyzers/SayanCMW/data/EFF/trackingEfficiency2018PbPb_newEffv1.h"
 #include "Analyzers/SayanCMW/interface/DiHadronCorrelationEvt.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
@@ -43,10 +42,6 @@
 #include "TVector3.h"
 #include <string>
 #include "TProfile.h"
-#include "TParallelCoord.h"
-#include "TParallelCoordVar.h"
-#include "THnSparse.h"
-#include "TAxis.h"
 
 
 class SayanCMW : public edm::one::EDAnalyzer<edm::one::SharedResources>
@@ -88,7 +83,7 @@ class SayanCMW : public edm::one::EDAnalyzer<edm::one::SharedResources>
      // ## Event selection ##
      int centmin_;
      int centmax_;
-     double centBin;
+     float centBin;
 
      //Event Id
      int ev_id;
@@ -149,18 +144,18 @@ class SayanCMW : public edm::one::EDAnalyzer<edm::one::SharedResources>
      // QA_plots
 
      TH1F* hpt;
+     TH1F* hpt_nbin;
      TH1F* heta;
      TH1F* heta_nbin;
      TH1F* hptP;
+     TH1F* hptP_nbin;
      TH1F* hetaP;
      TH1F* hetaP_nbin;
      TH1F* hptN;
+     TH1F* hptN_nbin;
      TH1F* hetaN;
      TH1F* hetaN_nbin;
      TH1F* hphi;
-     TH1F* hphiP;
-     TH1F* hphiN;
-
      TH1F* hZBestVtx;
      TH1I* hcent_bin;
      TH1I* hcentBin;
@@ -173,52 +168,46 @@ class SayanCMW : public edm::one::EDAnalyzer<edm::one::SharedResources>
      TH1D* th1d_algo;
      TH1D* th1d_mva;
 
+     TProfile* tp1d_mpteta;
+     TProfile* tp1d_mpteta_0p3;
      TProfile* tp1d_mpteta_nbin;
+     TProfile* tp1d_mptetaP;
+     TProfile* tp1d_mptetaP_0p3;
      TProfile* tp1d_mptetaP_nbin;
+     TProfile* tp1d_mptetaN;
+     TProfile* tp1d_mptetaN_0p3;
      TProfile* tp1d_mptetaN_nbin;
 
-     TProfile* tp1d_mptphi;
-     TProfile* tp1d_mptphiP;
-     TProfile* tp1d_mptphiN;
-
      TProfile* tp1d_charge_eta;
-     TProfile* tp1d_charge_phi;
-
-     THnSparseD* hist4D;
-     THnSparseD* hist4DP;
-     THnSparseD* hist4DN;
+     TProfile* tp1d_charge_etaP;
+     TProfile* tp1d_charge_etaN;
 
      //efficiency weight
      TH1F* hpt_w;
+     TH1F* hpt_nbin_w;
      TH1F* heta_w;
      TH1F* heta_nbin_w;
      TH1F* hptP_w;
+     TH1F* hptP_nbin_w;
      TH1F* hetaP_w;
      TH1F* hetaP_nbin_w;
      TH1F* hptN_w;
+     TH1F* hptN_nbin_w;
      TH1F* hetaN_w;
      TH1F* hetaN_nbin_w;
-     TH1F* hphi_w;
-     TH1F* hphiP_w;
-     TH1F* hphiN_w;
 
-     TH2D* th2d_etaphi_w;
-     TH2D* th2d_etaphi_pos_w;
-     TH2D* th2d_etaphi_neg_w;
-
+     TProfile* tp1d_mpteta_w;
+     TProfile* tp1d_mpteta_0p3_w;
      TProfile* tp1d_mpteta_nbin_w;
+     TProfile* tp1d_mptetaP_w;
+     TProfile* tp1d_mptetaP_0p3_w;
      TProfile* tp1d_mptetaP_nbin_w;
+     TProfile* tp1d_mptetaN_w;
+     TProfile* tp1d_mptetaN_0p3_w;
      TProfile* tp1d_mptetaN_nbin_w;
 
-     TProfile* tp1d_mptphi_w;
-     TProfile* tp1d_mptphiP_w;
-     TProfile* tp1d_mptphiN_w;
-
      TProfile* tp1d_charge_eta_w;
-     TProfile* tp1d_charge_phi_w;
-
-     THnSparseD* hist4D_w;
-     THnSparseD* hist4DP_w;
-     THnSparseD* hist4DN_w;
+     TProfile* tp1d_charge_etaP_w;
+     TProfile* tp1d_charge_etaN_w;
 
 };
